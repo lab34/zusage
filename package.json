@@ -1,0 +1,36 @@
+{
+  "name": "zusage",
+  "version": "1.0.1",
+  "description": "CLI tool to monitor Z.ai token usage for Claude Code coding plans",
+  "type": "module",
+  "bin": {
+    "zusage": "./bin/index.js"
+  },
+  "files": [
+    "bin/"
+  ],
+  "scripts": {
+    "test": "node bin/index.js"
+  },
+  "keywords": [
+    "zai",
+    "claude",
+    "token",
+    "usage",
+    "monitor",
+    "cli"
+  ],
+  "author": "lab34",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lab34/zusage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lab34/zusage/issues"
+  },
+  "homepage": "https://github.com/lab34/zusage#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

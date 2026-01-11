@@ -4,28 +4,41 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Zusage is a minimal CLI tool that monitors and displays Z.ai API token usage. It's a single-file Node.js script (ES modules) with no external dependencies.
+Zusage is a minimal CLI tool that monitors and displays Z.ai API token usage. It's a single-file Node.js script (ES modules) with no external dependencies, published as an npm package.
 
 ## Running the Script
 
 ```bash
-# Make sure the script is executable
-chmod +x token-usage.mjs
+# Via npx (recommended)
+npx -y zusage@latest
 
-# Run the script
-./token-usage.mjs
+# Or run locally
+node bin/index.js
 
-# Or with node directly
-node token-usage.mjs
+# Or with npm script
+npm test
 ```
 
 ## Environment Variables
 
 - `ANTHROPIC_AUTH_TOKEN` (required): Bearer token for Z.ai API authentication
 
+## Publishing
+
+```bash
+# Bump version in package.json
+npm version patch  # or minor, major
+
+# Publish to npm
+npm publish
+
+# Or to GitHub Packages (via GitHub Actions)
+git push --follow-tags
+```
+
 ## Architecture
 
-The script is organized into pure functions with clear responsibilities:
+The script is located in `bin/index.js` and is organized into pure functions with clear responsibilities:
 
 - `getTokenLimit()`: Fetches quota data from `https://api.z.ai/api/monitor/usage/quota/limit`, extracts the `TOKENS_LIMIT` entry from the response
 - `formatNumber()`: French locale number formatting with thousand separators
@@ -57,8 +70,8 @@ The API returns a JSON response with this structure:
 
 ## Code Conventions
 
-- ES modules (`.mjs` extension)
+- ES modules (`.js` files with `"type": "module"` in package.json)
 - Async/await for API calls
 - French language for comments and user-facing messages
 - French locale formatting (`fr-FR`, `Europe/Paris` timezone)
-- Shebang: `#!/usr/bin/env node`
+- Shebang: `#!/usr/bin/env node` in `bin/index.js`

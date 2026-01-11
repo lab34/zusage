@@ -15,11 +15,18 @@ This tool connects to the Z.ai API to fetch and display your current token consu
 
 ## Installation
 
-No dependencies required - just Node.js.
+### Via npx (recommended)
+
+No installation needed - just run:
 
 ```bash
-# Clone or download the script
-chmod +x token-usage.mjs
+npx -y zusage@latest
+```
+
+### Or install globally
+
+```bash
+npm install -g zusage
 ```
 
 ## Usage
@@ -29,8 +36,11 @@ Set your `ANTHROPIC_AUTH_TOKEN` environment variable (found in your browser's lo
 ```bash
 export ANTHROPIC_AUTH_TOKEN="your_token_here"
 
-# Run the script
-./token-usage.mjs
+# Via npx
+npx -y zusage@latest
+
+# Or if installed globally
+zusage
 ```
 
 ## Example Output

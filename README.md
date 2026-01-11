@@ -11,7 +11,7 @@ This tool connects to the Z.ai API to fetch and display your current token consu
 - Visual progress bar showing token usage percentage
 - Current tokens used, remaining, and total limit
 - Time remaining until next reset
-- Next reset date and time (Paris timezone)
+- Next reset date and time
 
 ## Installation
 
@@ -47,17 +47,17 @@ zusage
 
 ```
 ==================================================
-  📊 Z.AI - UTILISATION DES TOKENS
+  📊 Z.AI - TOKEN USAGE
 ==================================================
 
-  Progression: [███████████████████████░░░░] 72%
+  Progress: [███████████████████████░░░░] 72%
 
-  📈 Utilisé:     145 000 tokens
-  📉 Restant:     55 000 tokens
-  🎯 Limite:      200 000 tokens
+  📈 Used:        145,000 tokens
+  📉 Remaining:   55,000 tokens
+  🎯 Limit:       200,000 tokens
 
-  ⏱️  Reset dans:  2h 15min
-  📅 Prochain reset: lundi 11 janvier 2026 à 14:30
+  ⏱️  Reset in:    2h 15m
+  📅 Next reset:  Monday, January 11, 2026 at 2:30 PM
 
 ==================================================
 ```

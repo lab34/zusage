@@ -41,8 +41,8 @@ git push --follow-tags
 The script is located in `bin/index.js` and is organized into pure functions with clear responsibilities:
 
 - `getTokenLimit()`: Fetches quota data from `https://api.z.ai/api/monitor/usage/quota/limit`, extracts the `TOKENS_LIMIT` entry from the response
-- `formatNumber()`: French locale number formatting with thousand separators
-- `formatDate()`: Formats timestamps to French locale (Europe/Paris timezone)
+- `formatNumber()`: Number formatting with thousand separators
+- `formatDate()`: Formats timestamps to readable date
 - `getTimeRemaining()`: Calculates human-readable time until next reset
 - `displayTokenInfo()`: Renders console output with ASCII progress bar
 - `main()`: Entry point with error handling
@@ -72,6 +72,6 @@ The API returns a JSON response with this structure:
 
 - ES modules (`.js` files with `"type": "module"` in package.json)
 - Async/await for API calls
-- French language for comments and user-facing messages
-- French locale formatting (`fr-FR`, `Europe/Paris` timezone)
+- English language for comments and user-facing messages
+- English locale formatting (`en-US`)
 - Shebang: `#!/usr/bin/env node` in `bin/index.js`

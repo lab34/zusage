@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
- * Programme simple pour afficher l'utilisation des tokens Z.ai
+ * Simple program to display Z.ai token usage
  */
 
 const BASE_URL = 'https://api.z.ai';
 const AUTH_TOKEN = process.env.ANTHROPIC_AUTH_TOKEN;
 
 if (!AUTH_TOKEN) {
-  console.error('❌ Erreur: La variable d\'environnement ANTHROPIC_AUTH_TOKEN n\'est pas définie');
+  console.error('❌ Error: ANTHROPIC_AUTH_TOKEN environment variable is not set');
   process.exit(1);
 }
 
 /**
- * Récupère les limites de tokens depuis l'API Z.ai
+ * Fetches token limits from Z.ai API
  */
 async function getTokenLimit() {
   const response = await fetch(`${BASE_URL}/api/monitor/usage/quota/limit`, {
@@ -34,36 +34,35 @@ async function getTokenLimit() {
     throw new Error(`API Error: ${data.msg}`);
   }
 
-  // Trouver et retourner uniquement la partie TOKENS_LIMIT
+  // Find and return only the TOKENS_LIMIT part
   const tokensLimit = data.data.limits.find(limit => limit.type === 'TOKENS_LIMIT');
 
   if (!tokensLimit) {
-    throw new Error('TOKENS_LIMIT non trouvé dans la réponse');
+    throw new Error('TOKENS_LIMIT not found in response');
   }
 
   return tokensLimit;
 }
 
 /**
- * Formate un nombre avec séparateur de milliers
+ * Formats a number with thousand separators
  */
 function formatNumber(num) {
-  return new Intl.NumberFormat('fr-FR').format(num);
+  return new Intl.NumberFormat('en-US').format(num);
 }
 
 /**
- * Formette un timestamp en date lisible
+ * Formats a timestamp into a readable date
  */
 function formatDate(timestamp) {
-  return new Date(timestamp).toLocaleString('fr-FR', {
-    timeZone: 'Europe/Paris',
+  return new Date(timestamp).toLocaleString('en-US', {
     dateStyle: 'full',
     timeStyle: 'short',
   });
 }
 
 /**
- * Calcule le temps restant jusqu'au reset
+ * Calculates time remaining until reset
  */
 function getTimeRemaining(nextResetTime) {
   const now = Date.now();
@@ -74,47 +73,47 @@ function getTimeRemaining(nextResetTime) {
   const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
 
   if (days > 0) {
-    return `${days}j ${hours}h ${minutes}min`;
+    return `${days}d ${hours}h ${minutes}m`;
   } else if (hours > 0) {
-    return `${hours}h ${minutes}min`;
+    return `${hours}h ${minutes}m`;
   } else {
-    return `${minutes}min`;
+    return `${minutes}m`;
   }
 }
 
 /**
- * Affiche les infos de manière stylisée
+ * Displays token info in a stylized manner
  */
 function displayTokenInfo(info) {
   console.log('\n' + '='.repeat(50));
-  console.log('  📊 Z.AI - UTILISATION DES TOKENS');
+  console.log('  📊 Z.AI - TOKEN USAGE');
   console.log('='.repeat(50));
 
-  // Barre de progression visuelle
+  // Visual progress bar
   const barLength = 30;
   const filled = Math.round((info.percentage / 100) * barLength);
   const empty = barLength - filled;
   const bar = '█'.repeat(filled) + '░'.repeat(empty);
 
-  console.log(`\n  Progression: [${bar}] ${info.percentage}%`);
-  console.log(`\n  📈 Utilisé:     ${formatNumber(info.currentValue)} tokens`);
-  console.log(`  📉 Restant:     ${formatNumber(info.remaining)} tokens`);
-  console.log(`  🎯 Limite:      ${formatNumber(info.usage)} tokens`);
+  console.log(`\n  Progress: [${bar}] ${info.percentage}%`);
+  console.log(`\n  📈 Used:        ${formatNumber(info.currentValue)} tokens`);
+  console.log(`  📉 Remaining:   ${formatNumber(info.remaining)} tokens`);
+  console.log(`  🎯 Limit:       ${formatNumber(info.usage)} tokens`);
 
   const timeRemaining = getTimeRemaining(info.nextResetTime);
-  console.log(`\n  ⏱️  Reset dans:  ${timeRemaining}`);
-  console.log(`  📅 Prochain reset: ${formatDate(info.nextResetTime)}`);
+  console.log(`\n  ⏱️  Reset in:    ${timeRemaining}`);
+  console.log(`  📅 Next reset:  ${formatDate(info.nextResetTime)}`);
 
   console.log('\n' + '='.repeat(50) + '\n');
 }
 
-// Point d'entrée
+// Entry point
 async function main() {
   try {
     const tokenInfo = await getTokenLimit();
     displayTokenInfo(tokenInfo);
   } catch (error) {
-    console.error('❌ Erreur:', error.message);
+    console.error('❌ Error:', error.message);
     process.exit(1);
   }
 }
